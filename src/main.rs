@@ -1,15 +1,23 @@
 fn main() {
     let n: u32 = 13;
 
-    if is_prime(n) {
+    if is_prime_number(n) {
         println!("{} is a prime number.", n);
     } else {
         println!("{} is not a prime number.", n);
     }
 
-    if has_prime_below(n) {
-        println!("There are prime numbers less than {}.", n);
-        let prime_numbers: Vec<u32> = get_primes_below(n);
+    if has_prime_number_below(n) {
+        print!(
+            "There are {} prime numbers less than {},",
+            get_prime_number_count_below(n),
+            n
+        );
+        println!(
+            " and {} is a largest one.",
+            get_largest_prime_number_below(n)
+        );
+        let prime_numbers: Vec<u32> = get_prime_numbers_below(n);
         println!("Prime numbers less than {}.", n);
         print_vec(&prime_numbers);
     } else {
@@ -17,7 +25,11 @@ fn main() {
     }
 }
 
-fn is_prime(n: u32) -> bool {
+fn has_prime_number_below(n: u32) -> bool {
+    n > 2
+}
+
+fn is_prime_number(n: u32) -> bool {
     let is_prime: bool = if n < 2 {
         false
     } else if n < 4 {
@@ -30,12 +42,23 @@ fn is_prime(n: u32) -> bool {
     is_prime
 }
 
-fn has_prime_below(n: u32) -> bool {
-    n > 2
+fn get_prime_number_count_below(n: u32) -> u32 {
+    let count: u32 = if n < 3 {
+        0
+    } else {
+        (2..n).filter(|i| is_prime_number(*i)).count() as u32
+    };
+
+    count
 }
 
-fn get_primes_below(n: u32) -> Vec<u32> {
-    let mut sieve: Vec<u32> = create_sieve(n);
+fn get_largest_prime_number_below(n: u32) -> u32 {
+    n
+}
+
+fn get_prime_numbers_below(n: u32) -> Vec<u32> {
+    let size = n as usize;
+    let mut sieve: Vec<u32> = (0..size).map(|i| i as u32).collect();
     let max_check_index: usize = (sieve.len() as f32).sqrt().ceil() as usize;
 
     for index in 0..max_check_index {
@@ -62,17 +85,6 @@ fn get_primes_below(n: u32) -> Vec<u32> {
     };
 
     primes
-}
-
-fn create_sieve(n: u32) -> Vec<u32> {
-    let size = n as usize;
-    let mut sieve: Vec<u32> = vec![0; size];
-
-    for index in 0..size {
-        sieve[index] = index as u32;
-    }
-
-    sieve
 }
 
 fn print_vec(vec: &Vec<u32>) {
