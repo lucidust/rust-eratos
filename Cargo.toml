@@ -1,5 +1,5 @@
 [package]
-name = "rust-eratosthenes"
+name = "rust-eratos"
 version = "0.1.0"
 edition = "2021"
 authors = ["lucidust"]

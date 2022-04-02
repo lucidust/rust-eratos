@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rust-eratosthenes'",
+            "name": "Debug executable 'rust-eratos'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=rust-eratosthenes",
-                    "--package=rust-eratosthenes"
+                    "--bin=rust-eratos",
+                    "--package=rust-eratos"
                 ],
                 "filter": {
-                    "name": "rust-eratosthenes",
+                    "name": "rust-eratos",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rust-eratosthenes'",
+            "name": "Debug unit tests in executable 'rust-eratos'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=rust-eratosthenes",
-                    "--package=rust-eratosthenes"
+                    "--bin=rust-eratos",
+                    "--package=rust-eratos"
                 ],
                 "filter": {
-                    "name": "rust-eratosthenes",
+                    "name": "rust-eratos",
                     "kind": "bin"
                 }
             },
