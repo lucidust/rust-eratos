@@ -1,5 +1,5 @@
 fn main() {
-    let n: u32 = 13;
+    let n: u32 = 4;
 
     if is_prime_number(n) {
         println!("{} is a prime number.", n);
@@ -8,13 +8,20 @@ fn main() {
     }
 
     if has_prime_number_below(n) {
-        print!(
-            "There are {} prime numbers less than {},",
-            get_prime_number_count_below(n),
-            n
-        );
+        match get_prime_number_count_below(n) {
+            1 => print!(
+                "There is {} prime number less than {},",
+                get_prime_number_count_below(n),
+                n
+            ),
+            _ => print!(
+                "There are {} prime numbers less than {},",
+                get_prime_number_count_below(n),
+                n
+            ),
+        }
         println!(
-            " and {} is a largest one.",
+            " and the largest number is {}.",
             get_largest_prime_number_below(n)
         );
         let prime_numbers: Vec<u32> = get_prime_numbers_below(n);
@@ -42,18 +49,27 @@ fn is_prime_number(n: u32) -> bool {
     is_prime
 }
 
-fn get_prime_number_count_below(n: u32) -> u32 {
-    let count: u32 = if n < 3 {
+fn get_prime_number_count_below(n: u32) -> usize {
+    let count: usize = if n < 3 {
         0
     } else {
-        (2..n).filter(|i| is_prime_number(*i)).count() as u32
+        (2..n).filter(|i| is_prime_number(*i)).count()
     };
 
     count
 }
 
 fn get_largest_prime_number_below(n: u32) -> u32 {
-    n
+    let largest_prime: u32 = if has_prime_number_below(n) {
+        match (2..n).rev().find(|i| is_prime_number(*i)) {
+            Some(i) => i,
+            None => 0,
+        }
+    } else {
+        0
+    };
+
+    largest_prime
 }
 
 fn get_prime_numbers_below(n: u32) -> Vec<u32> {
