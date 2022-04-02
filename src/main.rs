@@ -1,10 +1,12 @@
-use rust_eratosthenes;
 mod eratos;
-use std::env;
+use std::{env, process};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let n: u32 = rust_eratosthenes::parse_args(&args);
+    let n: u32 = rust_eratosthenes::parse_args(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {}", err);
+        process::exit(1);
+    });
 
     if eratos::is_prime_number(n) {
         println!("{} is a prime number.", n);
@@ -31,7 +33,11 @@ fn main() {
         );
         let prime_numbers: Vec<u32> = eratos::get_prime_numbers_below(n);
         println!("Prime numbers less than {}.", n);
-        rust_eratosthenes::print_vec(&prime_numbers);
+
+        if let Err(e) = rust_eratosthenes::print_vec(&prime_numbers) {
+            println!("Application error: {}", e);
+            process::exit(1);
+        };
     } else {
         println!("There is no prime number less than {}.", n);
     }
