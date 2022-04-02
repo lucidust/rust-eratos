@@ -1,14 +1,42 @@
 fn main() {
-    let n: u32 = 100;
-    let primes: Vec<u32> = get_primes_below(n);
-    print_vec(&primes);
+    let n: u32 = 13;
+
+    if is_prime(n) {
+        println!("{} is a prime number.", n);
+    } else {
+        println!("{} is not a prime number.", n);
+    }
+
+    if has_prime_below(n) {
+        println!("There are prime numbers less than {}.", n);
+        let prime_numbers: Vec<u32> = get_primes_below(n);
+        println!("Prime numbers less than {}.", n);
+        print_vec(&prime_numbers);
+    } else {
+        println!("There is no prime number less than {}.", n);
+    }
+}
+
+fn is_prime(n: u32) -> bool {
+    let is_prime: bool = if n < 2 {
+        false
+    } else if n < 4 {
+        true
+    } else {
+        let max_check_n: u32 = (n as f32).sqrt().ceil() as u32 + 1;
+        !(2..max_check_n).any(|i| n % i == 0)
+    };
+
+    is_prime
+}
+
+fn has_prime_below(n: u32) -> bool {
+    n > 2
 }
 
 fn get_primes_below(n: u32) -> Vec<u32> {
     let mut sieve: Vec<u32> = create_sieve(n);
-    let max_check_index: usize = (sieve.len() as f32).sqrt() as usize;
-    // println!("Max check index: {}", max_check_index);
-    // print_vec(&sieve);
+    let max_check_index: usize = (sieve.len() as f32).sqrt().ceil() as usize;
 
     for index in 0..max_check_index {
         if sieve[index] <= 0 {
@@ -27,7 +55,11 @@ fn get_primes_below(n: u32) -> Vec<u32> {
         }
     }
 
-    let primes: Vec<u32> = sieve.into_iter().filter(|&element| element > 0).collect();
+    let primes: Vec<u32> = if max_check_index < 2 {
+        vec![2]
+    } else {
+        sieve.into_iter().filter(|&element| element > 0).collect()
+    };
 
     primes
 }
