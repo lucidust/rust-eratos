@@ -39,9 +39,8 @@ pub fn get_largest_prime_number_below(n: u32) -> u32 {
 }
 
 pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
-    let size = n as usize;
-    let mut sieve: Vec<u32> = (0..size).map(|i| i as u32).collect();
-    let max_check_index: usize = (sieve.len() as f32).sqrt().ceil() as usize;
+    let mut sieve: Vec<u32> = (0..n).map(|i| i).collect();
+    let max_check_index: usize = (n as f32).sqrt().ceil() as usize;
 
     for index in 0..max_check_index {
         if sieve[index] <= 0 {
@@ -60,7 +59,9 @@ pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
         }
     }
 
-    let primes: Vec<u32> = if max_check_index < 2 {
+    let primes: Vec<u32> = if n < 2 {
+        vec![]
+    } else if max_check_index < 2 {
         vec![2]
     } else {
         sieve.into_iter().filter(|&element| element > 0).collect()
