@@ -1,2 +1,2 @@
 # rust-eratos
-Making eratos module with rust for practice.
+An implementation of 'Sieve of Eratosthenes' for rust language practice.
