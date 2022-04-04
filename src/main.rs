@@ -4,7 +4,7 @@ use std::{env, process};
 fn main() {
     let args: Vec<String> = env::args().collect();
     let n: u32 = rust_eratos::parse_args(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {}", err);
+        eprintln!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
 
@@ -35,7 +35,7 @@ fn main() {
         println!("Prime numbers less than {}.", n);
 
         if let Err(e) = rust_eratos::print_vec(&prime_numbers) {
-            println!("Application error: {}", e);
+            eprintln!("Application error: {}", e);
             process::exit(1);
         };
     } else {
