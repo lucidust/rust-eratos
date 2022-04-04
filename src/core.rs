@@ -69,3 +69,90 @@ pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
 
     primes
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn has_prime() {
+        assert_eq!(has_prime_number_below(0), false);
+        assert_eq!(has_prime_number_below(1), false);
+        assert_eq!(has_prime_number_below(2), false);
+        assert_eq!(has_prime_number_below(3), true);
+        assert_eq!(has_prime_number_below(4), true);
+        assert_eq!(has_prime_number_below(5), true);
+    }
+
+    #[test]
+    fn is_prime() {
+        assert_eq!(is_prime_number(0), false);
+        assert_eq!(is_prime_number(1), false);
+        assert_eq!(is_prime_number(2), true);
+        assert_eq!(is_prime_number(3), true);
+        assert_eq!(is_prime_number(4), false);
+        assert_eq!(is_prime_number(5), true);
+        assert_eq!(is_prime_number(6), false);
+        assert_eq!(is_prime_number(7), true);
+        assert_eq!(is_prime_number(8), false);
+        assert_eq!(is_prime_number(9), false);
+        assert_eq!(is_prime_number(10), false);
+        assert_eq!(is_prime_number(11), true);
+        assert_eq!(is_prime_number(12), false);
+    }
+
+    #[test]
+    fn prime_count_below() {
+        assert_eq!(get_prime_number_count_below(0), 0);
+        assert_eq!(get_prime_number_count_below(1), 0);
+        assert_eq!(get_prime_number_count_below(2), 0);
+        assert_eq!(get_prime_number_count_below(3), 1);
+        assert_eq!(get_prime_number_count_below(4), 2);
+        assert_eq!(get_prime_number_count_below(5), 2);
+        assert_eq!(get_prime_number_count_below(6), 3);
+        assert_eq!(get_prime_number_count_below(7), 3);
+        assert_eq!(get_prime_number_count_below(8), 4);
+        assert_eq!(get_prime_number_count_below(9), 4);
+        assert_eq!(get_prime_number_count_below(10), 4);
+        assert_eq!(get_prime_number_count_below(11), 4);
+        assert_eq!(get_prime_number_count_below(12), 5);
+
+        assert_eq!(get_prime_numbers_below(12).len(), 5);
+    }
+
+    #[test]
+    fn largest_prime_below() {
+        assert_eq!(get_largest_prime_number_below(0), 0);
+        assert_eq!(get_largest_prime_number_below(1), 0);
+        assert_eq!(get_largest_prime_number_below(2), 0);
+        assert_eq!(get_largest_prime_number_below(3), 2);
+        assert_eq!(get_largest_prime_number_below(4), 3);
+        assert_eq!(get_largest_prime_number_below(5), 3);
+        assert_eq!(get_largest_prime_number_below(6), 5);
+        assert_eq!(get_largest_prime_number_below(7), 5);
+        assert_eq!(get_largest_prime_number_below(8), 7);
+        assert_eq!(get_largest_prime_number_below(9), 7);
+        assert_eq!(get_largest_prime_number_below(10), 7);
+        assert_eq!(get_largest_prime_number_below(11), 7);
+        assert_eq!(get_largest_prime_number_below(12), 11);
+
+        assert_eq!(get_prime_numbers_below(12).contains(&11), true);
+    }
+
+    #[test]
+    fn primes_below() {
+        assert_eq!(get_prime_numbers_below(0), vec![]);
+        assert_eq!(get_prime_numbers_below(1), vec![]);
+        assert_eq!(get_prime_numbers_below(2), vec![]);
+        assert_eq!(get_prime_numbers_below(3), vec![2]);
+        assert_eq!(get_prime_numbers_below(4), vec![2, 3]);
+        assert_eq!(get_prime_numbers_below(5), vec![2, 3]);
+        assert_eq!(get_prime_numbers_below(6), vec![2, 3, 5]);
+        assert_eq!(get_prime_numbers_below(7), vec![2, 3, 5]);
+        assert_eq!(get_prime_numbers_below(8), vec![2, 3, 5, 7]);
+        assert_eq!(get_prime_numbers_below(9), vec![2, 3, 5, 7]);
+        assert_eq!(get_prime_numbers_below(10), vec![2, 3, 5, 7]);
+        assert_eq!(get_prime_numbers_below(11), vec![2, 3, 5, 7]);
+        assert_eq!(get_prime_numbers_below(12), vec![2, 3, 5, 7, 11]);
+    }
+}
