@@ -5,6 +5,7 @@ edition = "2021"
 description = "An implementation of 'Sieve of Eratosthenes' for rust language practice."
 license = "MIT OR Apache-2.0"
 authors = ["lucidust"]
+repository = "https://github.com/lucidust/rust-eratos"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
