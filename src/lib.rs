@@ -25,16 +25,14 @@ pub fn has_prime_number_below(n: u32) -> bool {
 /// assert_eq!(rust_eratos::is_prime_number(12), false);
 /// ```
 pub fn is_prime_number(n: u32) -> bool {
-    let is_prime: bool = if n < 2 {
+    if n < 2 {
         false
     } else if n < 4 {
         true
     } else {
         let max_check_n: u32 = (n as f32).sqrt().ceil() as u32 + 1;
         !(2..max_check_n).any(|i| n % i == 0)
-    };
-
-    is_prime
+    }
 }
 
 /// Get prime number count below the number given.
@@ -47,13 +45,11 @@ pub fn is_prime_number(n: u32) -> bool {
 /// assert_eq!(rust_eratos::get_prime_number_count_below(12), 5);
 /// ```
 pub fn get_prime_number_count_below(n: u32) -> usize {
-    let count: usize = if n < 3 {
+    if n < 3 {
         0
     } else {
         (2..n).filter(|i| is_prime_number(*i)).count()
-    };
-
-    count
+    }
 }
 
 /// Get largest a prime number below the number given.
@@ -66,16 +62,14 @@ pub fn get_prime_number_count_below(n: u32) -> usize {
 /// assert_eq!(rust_eratos::get_largest_prime_number_below(12), 11);
 /// ```
 pub fn get_largest_prime_number_below(n: u32) -> u32 {
-    let largest_prime: u32 = if has_prime_number_below(n) {
+    if has_prime_number_below(n) {
         match (2..n).rev().find(|i| is_prime_number(*i)) {
             Some(i) => i,
             None => 0,
         }
     } else {
         0
-    };
-
-    largest_prime
+    }
 }
 
 /// Get prime numbers below the number given.
@@ -108,15 +102,13 @@ pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
         }
     }
 
-    let primes: Vec<u32> = if n < 2 {
+    if n < 2 {
         vec![]
     } else if max_check_index < 2 {
         vec![2]
     } else {
         sieve.into_iter().filter(|&element| element > 0).collect()
-    };
-
-    primes
+    }
 }
 
 #[cfg(test)]
