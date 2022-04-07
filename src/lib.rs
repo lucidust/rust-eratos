@@ -25,13 +25,13 @@ pub fn has_prime_number_below(n: u32) -> bool {
 /// assert_eq!(rust_eratos::is_prime_number(12), false);
 /// ```
 pub fn is_prime_number(n: u32) -> bool {
-    if n < 2 {
-        false
-    } else if n < 4 {
-        true
-    } else {
-        let max_check_n: u32 = (n as f32).sqrt().ceil() as u32 + 1;
-        !(2..max_check_n).any(|i| n % i == 0)
+    match n {
+        _ if n < 2 => false,
+        _ if n < 4 => true,
+        _ => {
+            let max_check_n: u32 = (n as f32).sqrt().ceil() as u32 + 1;
+            !(2..max_check_n).any(|i| n % i == 0)
+        }
     }
 }
 
@@ -45,10 +45,9 @@ pub fn is_prime_number(n: u32) -> bool {
 /// assert_eq!(rust_eratos::get_prime_number_count_below(12), 5);
 /// ```
 pub fn get_prime_number_count_below(n: u32) -> usize {
-    if n < 3 {
-        0
-    } else {
-        (2..n).filter(|i| is_prime_number(*i)).count()
+    match n {
+        _ if n < 3 => 0,
+        _ => (2..n).filter(|i| is_prime_number(*i)).count(),
     }
 }
 
@@ -62,13 +61,12 @@ pub fn get_prime_number_count_below(n: u32) -> usize {
 /// assert_eq!(rust_eratos::get_largest_prime_number_below(12), 11);
 /// ```
 pub fn get_largest_prime_number_below(n: u32) -> u32 {
-    if has_prime_number_below(n) {
-        match (2..n).rev().find(|i| is_prime_number(*i)) {
+    match has_prime_number_below(n) {
+        true => match (2..n).rev().find(|i| is_prime_number(*i)) {
             Some(i) => i,
             None => 0,
-        }
-    } else {
-        0
+        },
+        false => 0,
     }
 }
 
@@ -90,24 +88,23 @@ pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
             continue;
         }
 
-        if index < 2 {
-            sieve[index] = 0;
-        } else {
-            let mut next_index = index + index;
+        match index {
+            _ if index < 2 => sieve[index] = 0,
+            _ => {
+                let mut next_index = index + index;
 
-            while next_index < sieve.len() {
-                sieve[next_index] = 0;
-                next_index += index;
+                while next_index < sieve.len() {
+                    sieve[next_index] = 0;
+                    next_index += index;
+                }
             }
         }
     }
 
-    if n < 2 {
-        vec![]
-    } else if max_check_index < 2 {
-        vec![2]
-    } else {
-        sieve.into_iter().filter(|&element| element > 0).collect()
+    match n {
+        _ if n < 2 => vec![],
+        _ if max_check_index < 2 => vec![2],
+        _ => sieve.into_iter().filter(|&element| element > 0).collect(),
     }
 }
 
