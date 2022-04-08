@@ -83,23 +83,18 @@ pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
     let mut sieve: Vec<u32> = (0..n).map(|i| i).collect();
     let max_check_index: usize = (n as f32).sqrt().ceil() as usize;
 
-    for index in 0..max_check_index {
-        if sieve[index] <= 0 {
-            continue;
-        }
+    (0..max_check_index).for_each(|index| match index {
+        _ if sieve[index] <= 0 => (),
+        _ if index < 2 => sieve[index] = 0,
+        _ => {
+            let mut next_index = index + index;
 
-        match index {
-            _ if index < 2 => sieve[index] = 0,
-            _ => {
-                let mut next_index = index + index;
-
-                while next_index < sieve.len() {
-                    sieve[next_index] = 0;
-                    next_index += index;
-                }
+            while next_index < sieve.len() {
+                sieve[next_index] = 0;
+                next_index += index;
             }
         }
-    }
+    });
 
     match n {
         _ if n < 2 => vec![],
