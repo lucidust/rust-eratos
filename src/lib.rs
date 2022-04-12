@@ -27,9 +27,8 @@ pub fn has_prime_number_below(n: u32) -> bool {
 pub fn is_prime_number(n: u32) -> bool {
     match n {
         _ if n < 2 => false,
-        _ if n < 4 => true,
         _ => {
-            let max_check_n: u32 = (n as f32).sqrt().ceil() as u32 + 1;
+            let max_check_n: u32 = (n as f32).sqrt() as u32 + 1;
             !(2..max_check_n).any(|i| n % i == 0)
         }
     }
