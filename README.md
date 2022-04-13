@@ -17,7 +17,7 @@ rust-eratos 11
 - 언어를 직접 사용하며 몸에 익히고 적응하는데 도움을 주고자
 - 가볍게 따라할 수 있는 작은 목표들을 단계적으로 제공한다.
 
-## 사전 지식
+## 사전 준비
 
 - Rust 언어의 기본 문법을 대략적으로 알고 있거나 쉽게 찾아볼 수 있어야 한다.
     - 혹시나 처음이라면 취향에 맞는 것으로 준비한다.
@@ -97,7 +97,7 @@ fn get_prime_numbers_below(n: u32) -> Vec<u32>
 - 기본 자료구조 중 Vec을 사용하여 구현해본다.
 - 혹시 if, for 명령들로만 구현했다면 range, into_iter, filter, collect 등을 이용한 표현으로 구현해본다.
 
-### *n*을 커맨드 라인 입력을 정수로 변환하기
+### 커맨드 라인 입력을 정수로 변환하기
 ```rust
 fn parse_args(args: &[String]) -> Result<u32, &'static str>
 ```
@@ -107,7 +107,7 @@ fn parse_args(args: &[String]) -> Result<u32, &'static str>
 
 ### 작성한 기능들로 stdout에 출력하기
 
-```
+```sh
 # output example
 > rust-eratos 13
 
