@@ -29,10 +29,9 @@ pub fn has_prime_number_below(n: u32) -> bool {
 /// assert_eq!(rust_eratos::is_prime_number(12), false);
 /// ```
 pub fn is_prime_number(n: u32) -> bool {
-    if n < 2 {
-        false
-    } else {
-        !(2..get_upper_range_n(n)).any(|i| n % i == 0)
+    match n {
+        0..=1 => false,
+        _ => !(2..get_upper_range_n(n)).any(|i| n % i == 0),
     }
 }
 
@@ -46,10 +45,9 @@ pub fn is_prime_number(n: u32) -> bool {
 /// assert_eq!(rust_eratos::get_prime_number_count_below(12), 5);
 /// ```
 pub fn get_prime_number_count_below(n: u32) -> usize {
-    if n < 3 {
-        0
-    } else {
-        (2..n).filter(|i| is_prime_number(*i)).count()
+    match n {
+        0..=2 => 0,
+        _ => (2..n).filter(|i| is_prime_number(*i)).count(),
     }
 }
 
@@ -63,12 +61,9 @@ pub fn get_prime_number_count_below(n: u32) -> usize {
 /// assert_eq!(rust_eratos::get_largest_prime_number_below(12), 11);
 /// ```
 pub fn get_largest_prime_number_below(n: u32) -> u32 {
-    match has_prime_number_below(n) {
-        true => match (2..n).rev().find(|i| is_prime_number(*i)) {
-            Some(i) => i,
-            None => 0,
-        },
-        false => 0,
+    match (2..n).rev().find(|i| is_prime_number(*i)) {
+        Some(i) => i,
+        None => 0,
     }
 }
 
