@@ -2,6 +2,10 @@
 //!
 //! `rust_eratos` is one of the Sieve of Eratosthenes implementation for rust language practice.
 
+fn get_upper_range_n(n: u32) -> u32 {
+    (n as f32).sqrt() as u32 + 1
+}
+
 /// Check has prime number below the number given.
 ///
 /// # Examples
@@ -25,12 +29,10 @@ pub fn has_prime_number_below(n: u32) -> bool {
 /// assert_eq!(rust_eratos::is_prime_number(12), false);
 /// ```
 pub fn is_prime_number(n: u32) -> bool {
-    match n {
-        _ if n < 2 => false,
-        _ => {
-            let max_check_n: u32 = (n as f32).sqrt() as u32 + 1;
-            !(2..max_check_n).any(|i| n % i == 0)
-        }
+    if n < 2 {
+        false
+    } else {
+        !(2..get_upper_range_n(n)).any(|i| n % i == 0)
     }
 }
 
@@ -44,9 +46,10 @@ pub fn is_prime_number(n: u32) -> bool {
 /// assert_eq!(rust_eratos::get_prime_number_count_below(12), 5);
 /// ```
 pub fn get_prime_number_count_below(n: u32) -> usize {
-    match n {
-        _ if n < 3 => 0,
-        _ => (2..n).filter(|i| is_prime_number(*i)).count(),
+    if n < 3 {
+        0
+    } else {
+        (2..n).filter(|i| is_prime_number(*i)).count()
     }
 }
 
@@ -79,27 +82,24 @@ pub fn get_largest_prime_number_below(n: u32) -> u32 {
 /// assert_eq!(rust_eratos::get_prime_numbers_below(12), vec![2, 3, 5, 7, 11]);
 /// ```
 pub fn get_prime_numbers_below(n: u32) -> Vec<u32> {
-    let mut sieve: Vec<u32> = (0..n).map(|i| i).collect();
-    let max_check_index: usize = (n as f32).sqrt().ceil() as usize;
+    let upper_range_n: u32 = get_upper_range_n(n);
+    let mut sieve: Vec<u32> = vec![0, 0];
+    sieve.append(&mut (2..n).collect());
 
-    (0..max_check_index).for_each(|index| match index {
-        _ if sieve[index] <= 0 => (),
-        _ if index < 2 => sieve[index] = 0,
-        _ => {
-            let mut next_index = index + index;
-
-            while next_index < sieve.len() {
-                sieve[next_index] = 0;
-                next_index += index;
-            }
+    for (i, _) in (0..upper_range_n).enumerate() {
+        if sieve[i] <= 0 {
+            continue;
         }
-    });
 
-    match n {
-        _ if n < 2 => vec![],
-        _ if max_check_index < 2 => vec![2],
-        _ => sieve.into_iter().filter(|&element| element > 0).collect(),
+        let mut next_index = i * i;
+
+        while next_index < sieve.len() {
+            sieve[next_index] = 0;
+            next_index += i;
+        }
     }
+
+    sieve.into_iter().filter(|&element| element > 0).collect()
 }
 
 #[cfg(test)]

@@ -1,4 +1,3 @@
-use std::error::Error;
 use std::{env, process};
 
 fn main() {
@@ -35,10 +34,7 @@ fn main() {
 
             let prime_numbers: Vec<u32> = rust_eratos::get_prime_numbers_below(n);
             println!("Prime numbers less than {}.", n);
-            if let Err(e) = print_vec(&prime_numbers) {
-                eprintln!("Application error: {}", e);
-                process::exit(1);
-            }
+            println!("{:?}", prime_numbers);
         }
         false => println!("There is no prime number less than {}.", n),
     }
@@ -51,17 +47,4 @@ fn parse_args(args: &[String]) -> Result<u32, &'static str> {
 
     let arg1: String = String::from(&args[1]);
     Ok(arg1.parse::<u32>().unwrap())
-}
-
-fn print_vec(vec: &Vec<u32>) -> Result<(), Box<dyn Error>> {
-    vec.iter().enumerate().for_each(|(index, value)| {
-        print!("[{:^4}], ", value);
-
-        if (index + 1) % 10 == 0 {
-            println!();
-        }
-    });
-
-    println!();
-    Ok(())
 }
