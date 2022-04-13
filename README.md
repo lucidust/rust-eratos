@@ -97,6 +97,14 @@ fn get_prime_numbers_below(n: u32) -> Vec<u32>
 - 기본 자료구조 중 Vec을 사용하여 구현해본다.
 - 혹시 if, for 명령들로만 구현했다면 range, into_iter, filter, collect 등을 이용한 표현으로 구현해본다.
 
+### *n*을 커맨드 라인 입력을 정수로 변환하기
+```rust
+fn parse_args(args: &[String]) -> Result<u32, &'static str>
+```
+
+- 커맨드 라인으로 입력받은 문자열을 정수로 변환한다.
+- 정수 변환 결과와 오류를 Result&lt;T, E&gt; 를 이용하여 적절하게 반환하고 처리해본다.
+
 ### 작성한 기능들로 stdout에 출력하기
 
 ```
@@ -110,11 +118,9 @@ Prime numbers less than 13.
 ```
 
 ### 더 해보기
-- *n*을 커맨드 라인 입력으로 받아 처리하기
-- 에러 처리하기
+- 유닛 테스트 작성하기
 - 구현된 기능들을 라이브러리로 만들기
 - 계산된 결과를 캐싱하여 성능 개선하기
-- 유닛 테스트 작성하기
 - 코드의 실행 속도를 프로파일하고 개선하기
 - {2, 3, 5} 휠 인수분해 알고리즘 적용하기
     - Wheel factorization
